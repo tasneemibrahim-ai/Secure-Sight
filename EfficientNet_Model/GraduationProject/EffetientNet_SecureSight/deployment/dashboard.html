@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureSight | Command Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #05070a;
+            --card: rgba(16, 20, 28, 0.8);
+            --primary: #3b82f6;
+            --accent: #6366f1;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            height: 350px;
+            margin-top: 1rem;
+        }
+
+        .deployment-list {
+            margin-top: 1.5rem;
+        }
+
+        .deployment-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .badge-info { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tab-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .alert-feed {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            margin-bottom: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i data-lucide="shield-check"></i>
+            SECURESIGHT
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <button class="btn btn-outline" onclick="location.reload()">
+                <i data-lucide="refresh-cw"></i> Sync
+            </button>
+            <button class="btn">
+                <i data-lucide="upload-cloud"></i> New Deployment
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-stats">
+            <div class="stat-card">
+                <div class="stat-label">Total Batches</div>
+                <div class="stat-value">04</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Average F1-Score</div>
+                <div class="stat-value" id="avg-f1">0.864</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Server Latency</div>
+                <div class="stat-value">12.4ms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Status</div>
+                <div class="stat-value" style="color: var(--success); display: flex; align-items: center; gap: 0.5rem;">
+                    <span class="status-dot pulse" style="background: var(--success)"></span> Active
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2><i data-lucide="bar-chart-3" style="color: var(--primary)"></i> Cross-Batch Performance Analysis</h2>
+                <div class="tab-group">
+                    <div class="tab active" onclick="updateChart('f1')">F1-Score</div>
+                    <div class="tab" onclick="updateChart('acc')">Accuracy</div>
+                    <div class="tab" onclick="updateChart('loss')">Validation Loss</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i data-lucide="activity" style="color: var(--danger)"></i> Real-time Alerts</h2>
+                <div class="alert-feed" id="alert-feed">
+                    <div class="alert-item">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                            <span style="font-weight: 600; color: var(--danger)">Anomaly Detected</span>
+                            <span style="font-size: 0.75rem; color: #94a3b8;">14:05:22</span>
+                        </div>
+                        <div style="font-size: 0.875rem;">Confidence Score: 0.942 | Camera 04</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <button class="btn" style="width: 100%; justify-content: center;">
+                        <i data-lucide="eye"></i> View Live Stream
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h2><i data-lucide="terminal" style="color: var(--accent)"></i> Deployment Registry</h2>
+            <div class="deployment-list">
+                <div class="deployment-item">
+                    <span class="badge badge-info">Batch 4</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600;">Stability Testing (20 Epochs)</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8;">Completed 42 mins ago | 5 Runs</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600;">0.876 F1</div>
+                        <div class="badge badge-success">Consistent</div>
+                    </div>
+                </div>
+                <div class="deployment-item">
+                    <span class="badge badge-info">Batch 3</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600;">Hyperparameter Optimization</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8;">Completed 2 hours ago | AdamW Baseline</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600;">0.852 F1</div>
+                        <div class="badge badge-success">Optimized</div>
+                    </div>
+                </div>
+                <div class="deployment-item">
+                    <span class="badge badge-info">Batch 2</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600;">Baseline Ablation</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8;">Completed 4 hours ago | LR/Dropout Sweep</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600;">0.824 F1</div>
+                        <div class="badge badge-success">Verified</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        let currentChart;
+
+        const data = {
+            labels: ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4'],
+            f1: [0.820, 0.862, 0.875, 0.884],
+            acc: [0.850, 0.903, 0.924, 0.938],
+            loss: [0.410, 0.197, 0.181, 0.134]
+        };
+
+        function renderChart(type) {
+            if (currentChart) currentChart.destroy();
+            
+            const isLoss = type === 'loss';
+            const color = isLoss ? '#ef4444' : '#3b82f6';
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: type.toUpperCase(),
+                        data: data[type],
+                        borderColor: color,
+                        backgroundColor: color + '22',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        pointBackgroundColor: color
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(type) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderChart(type);
+        }
+
+        renderChart('f1');
+
+        // Connect to the Live API
+        async function fetchRealTimeAlerts() {
+            try {
+                // Try port 8001 first, fallback to 8000
+                let response;
+                try {
+                    response = await fetch('http://localhost:8001/analyze-frame', { method: 'POST' });
+                } catch {
+                    response = await fetch('http://localhost:8000/analyze-frame', { method: 'POST' });
+                }
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.anomaly_probability > 0.5) {
+                        addAlert(data.anomaly_probability);
+                    }
+                }
+            } catch (e) {
+                // Silent fallback if API not yet reachable
+            }
+        }
+
+        function addAlert(prob) {
+            const feed = document.getElementById('alert-feed');
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const alert = document.createElement('div');
+            alert.className = 'alert-item';
+            alert.innerHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                    <span style="font-weight: 600; color: var(--danger)">${prob > 0.8 ? 'CRITICAL ANOMALY' : 'POTENTIAL ANOMALY'}</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">${time}</span>
+                </div>
+                <div style="font-size: 0.875rem;">System detected unusual activity | Confidence: ${prob.toFixed(3)}</div>
+            `;
+            feed.prepend(alert);
+            if (feed.children.length > 5) feed.lastChild.remove();
+        }
+
+        // Poll the API for alerts every 3 seconds
+        setInterval(fetchRealTimeAlerts, 3000);
+    </script>
+</body>
+</html>

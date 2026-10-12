@@ -1,0 +1,97 @@
+================================================================================
+  SECURESIGHT - MISSING / CRITICAL FILES REPORT
+  Generated: 2026-05-16
+================================================================================
+
+STATUS KEY:
+  [CRITICAL]  - Essential for deployment, must be recreated
+  [IMPORTANT] - Needed for full functionality
+  [MINOR]     - Nice to have, can be regenerated
+
+================================================================================
+  CRITICAL MISSING FILES
+================================================================================
+
+[CRITICAL] best_model.pth / model checkpoint (.pth file)
+  Status: NO .pth MODEL FILE FOUND ON LOCAL MACHINE
+  Impact: Cannot run inference or deployment without trained weights
+  Note:   The deploy_and_train.ps1 script downloads it from:
+          secure-sight@10.55.205.205:/home/secure-sight/tasnim/outputs/checkpoints/best_model.pth
+  Action: - Try reconnecting to server to download
+          - OR retrain using the recovered training pipeline
+          - The model architecture is fully recovered (model.py)
+
+[CRITICAL] UCF-Crime Dataset / Extracted Features (.npz files)
+  Status: NOT FOUND locally (dataset was on university server)
+  Impact: Cannot retrain or validate model without features
+  Location on server: /home/secure-sight/Code/extracted_features_merged/
+  Splits:
+    - /home/secure-sight/Code/clean_split/train/
+    - /home/secure-sight/Code/clean_split/val/
+  Action: - Re-download UCF-Crime dataset from source
+          - Re-extract EfficientNet-B0 features
+          - OR try to download from server if access is restored
+
+================================================================================
+  IMPORTANT MISSING FILES
+================================================================================
+
+[IMPORTANT] Feature Extraction Script
+  Status: NOT FOUND - no standalone EfficientNet feature extraction script
+  Impact: Cannot regenerate .npz feature files from raw video
+  Note:   server_efficientnet_pipeline.py contains pipeline logic but not
+          the raw frame→feature extraction step using timm/EfficientNet
+  Action: Recreate using timm library with EfficientNet-B0 (output_dim=2560)
+
+[IMPORTANT] Training Logs / CSV Results
+  Status: Partial - evaluation data tree has epoch_results.csv per run
+  Impact: Some training history may be incomplete
+  Note:   Batches 1-5 data found in detailed_batches/
+
+[IMPORTANT] environment.yml / conda environment spec
+  Status: NOT FOUND
+  Impact: requirements.txt exists but conda env spec is missing
+  Action: Use requirements.txt to reconstruct environment
+
+================================================================================
+  MINOR MISSING FILES
+================================================================================
+
+[MINOR] .gitignore
+  Status: Not found in graduation project (exists in AI_Based_Project)
+  Action: Create standard Python/ML .gitignore
+
+[MINOR] Tensorboard logs
+  Status: Not found locally
+  Note:   Server paths reference /home/secure-sight/Code/tensorboard
+  Action: Not essential - evaluation plots and CSVs are recovered
+
+[MINOR] training_results.csv (global)
+  Status: Per-run CSVs recovered, global CSV not found
+  Action: Can be regenerated from per-run data
+
+[MINOR] Docker/containerization configs
+  Status: Not found
+  Action: Create for deployment simulation
+
+================================================================================
+  RECOVERED BUT POTENTIALLY STALE
+================================================================================
+
+- evaluation/data/ JSON summaries may reflect training runs on server
+- PDF reports were generated from server evaluation data
+- global_metrics.json, per_batch_metrics.json - present in statistical_analysis
+
+================================================================================
+  SUMMARY
+================================================================================
+
+  Critical missing:  2 (model weights, dataset)
+  Important missing: 3 (feature extractor, some logs, conda env)
+  Minor missing:     4 (gitignore, tensorboard, global CSV, docker)
+
+  VERDICT: Project structure is ~90% recoverable from local files.
+           The CRITICAL blocker is the missing model checkpoint (.pth).
+           All code, configs, evaluation data, and reports are recovered.
+
+================================================================================

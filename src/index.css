@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy text-white font-sans antialiased;
+    background-color: #0A0F1E;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-hover {
+    transition: all 0.3s ease;
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 229, 255, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 229, 255, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #00E5FF 0%, #0099FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-cyan {
+    @apply bg-[#00E5FF] text-navy font-bold px-6 py-3 rounded-lg transition-all duration-200;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+  }
+
+  .btn-cyan:hover {
+    box-shadow: 0 0 35px rgba(0, 229, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    @apply border border-[#00E5FF] text-[#00E5FF] font-semibold px-6 py-3 rounded-lg transition-all duration-200;
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    @apply bg-[#00E5FF]/10;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .max-content {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0A0F1E;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.3);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.6);
+  }
+}

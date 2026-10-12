@@ -1,0 +1,135 @@
+================================================================================
+  SECURESIGHT — ENVIRONMENT SETUP GUIDE
+  AI Video Anomaly Detection (EfficientNet-B0)
+================================================================================
+
+================================================================================
+  1. SYSTEM REQUIREMENTS
+================================================================================
+
+  Python:     3.9 – 3.12 (recommended: 3.10 or 3.11)
+  OS:         Windows 10/11 or Ubuntu 20.04+
+  GPU:        NVIDIA GPU with CUDA 11.8+ (optional for CPU-only testing)
+  RAM:        8 GB minimum, 16 GB recommended
+  Disk:       ~5 GB for environment + model + sample data
+
+================================================================================
+  2. CORE DEPENDENCIES
+================================================================================
+
+  Framework         Version       Purpose
+  ─────────────     ──────────    ────────────────────────────────
+  torch             >= 2.0.0     Deep learning framework
+  torchvision       >= 0.15.0    Vision transforms & utilities
+  timm              >= 0.9.0     EfficientNet pretrained models
+  numpy             >= 1.21.0    Numerical computing
+  Pillow            >= 9.0.0     Image loading
+  scikit-learn      >= 1.0.0     Metrics (F1, AUC, precision, recall)
+  matplotlib        >= 3.5.0     Plotting & visualization
+  tqdm              >= 4.62.0    Progress bars
+  opencv-python     >= 4.7.0     Video processing
+
+================================================================================
+  3. DEPLOYMENT DEPENDENCIES (ADDITIONAL)
+================================================================================
+
+  fastapi           >= 0.100.0   REST API for inference serving
+  uvicorn           >= 0.23.0    ASGI server for FastAPI
+  paramiko          >= 3.0.0     SSH client for server management
+  onnx              >= 1.14.0    ONNX model export
+  onnxruntime       >= 1.15.0    ONNX inference runtime
+  psutil            >= 5.9.0     System monitoring (CPU, RAM, temp)
+
+================================================================================
+  4. INSTALLATION STEPS
+================================================================================
+
+  Option A: Automated (recommended)
+  ──────────────────────────────────
+  Windows:  cd environment_setup && install_requirements.bat
+  Linux:    cd environment_setup && bash install_requirements.sh
+
+  Option B: Manual
+  ─────────────────
+  1. python -m venv venv
+  2. Activate:
+       Windows: venv\Scripts\activate
+       Linux:   source venv/bin/activate
+  3. pip install --upgrade pip
+  4. pip install -r requirements.txt
+  5. pip install fastapi uvicorn paramiko onnx onnxruntime psutil
+
+  Option C: Conda
+  ────────────────
+  1. conda create -n securesight python=3.10
+  2. conda activate securesight
+  3. conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+  4. pip install -r requirements.txt
+
+================================================================================
+  5. PYTORCH + CUDA INSTALLATION
+================================================================================
+
+  For GPU support, install PyTorch with CUDA:
+
+  CUDA 11.8:
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+  CUDA 12.1:
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+
+  CPU only:
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+  Verify:
+    python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+
+================================================================================
+  6. EDGE-AI / ONNX SETUP
+================================================================================
+
+  For ONNX export and edge testing:
+    pip install onnx onnxruntime
+
+  For TensorRT (NVIDIA Jetson / edge GPU):
+    pip install tensorrt  (requires NVIDIA TensorRT SDK installed)
+
+  For OpenVINO (Intel edge):
+    pip install openvino
+
+================================================================================
+  7. VERIFICATION
+================================================================================
+
+  Run this to verify everything works:
+
+    python -c "
+    import torch, torchvision, timm, numpy, sklearn, matplotlib, tqdm, cv2
+    print('All core packages loaded successfully')
+    print(f'PyTorch: {torch.__version__}')
+    print(f'CUDA available: {torch.cuda.is_available()}')
+    if torch.cuda.is_available():
+        print(f'GPU: {torch.cuda.get_device_name(0)}')
+    print(f'timm: {timm.__version__}')
+    "
+
+================================================================================
+  8. ORIGINAL SERVER ENVIRONMENT
+================================================================================
+
+  The university server (10.55.205.205) ran:
+    - Ubuntu Linux
+    - Python 3.x with CUDA GPU
+    - PyTorch >= 2.0 with mixed precision (AMP)
+    - EfficientNet-B0 via timm
+    - Training with AdamW, Focal Loss, weighted sampling
+
+================================================================================
+  9. KNOWN ISSUES
+================================================================================
+
+  - timm >= 1.0 changed some API surfaces; pin to 0.9.x if issues arise
+  - opencv-python-headless may be needed on servers without display
+  - Mixed precision (torch.amp) requires PyTorch >= 1.6 (already satisfied)
+
+================================================================================

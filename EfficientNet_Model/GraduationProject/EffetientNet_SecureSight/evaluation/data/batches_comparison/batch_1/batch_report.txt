@@ -1,0 +1,39 @@
+==========================================================================================
+SecureSight Batch Comparison Report — batch_1
+Generated: 2026-05-03T18:00:31.108659
+==========================================================================================
+
+Total runs: 5
+
+RUN SUMMARY:
+       run_1 | Acc: 0.8958 | F1: 0.8928 | Loss: 0.1916 | Latency: 8.00ms
+       run_2 | Acc: 0.8685 | F1: 0.8607 | Loss: 0.2267 | Latency: 8.07ms
+       run_3 | Acc: 0.8916 | F1: 0.8819 | Loss: 0.2103 | Latency: 7.76ms
+       run_4 | Acc: 0.8797 | F1: 0.8832 | Loss: 0.2122 | Latency: 7.88ms
+       run_5 | Acc: 0.8958 | F1: 0.8928 | Loss: 0.1916 | Latency: 8.00ms
+
+STABILITY METRICS:
+  Accuracy: mean=0.8863 ± 0.0119
+  F1:       mean=0.8823 ± 0.0131
+  Loss:     mean=0.2065 ± 0.0150
+  Latency:  mean=7.94 ± 0.12ms
+
+Best run:  run_1 (F1=0.8928, Acc=0.8958)
+Worst run: run_2 (F1=0.8607, Acc=0.8685)
+
+HYPERPARAMETERS:
+  learning_rate: 0.0001
+  batch_size: 32
+  dropout: 0.3
+  optimizer: adamw
+  weight_decay: 1e-05
+  seed: 43
+
+COMPARISON PLOTS:
+  ✓ batch_runs_accuracy.png
+  ✓ batch_runs_f1.png
+  ✓ batch_runs_loss.png
+  ✓ batch_runs_latency.png
+  ✓ batch_radar_comparison.png
+
+==========================================================================================

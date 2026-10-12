@@ -1,0 +1,94 @@
+==========================================================================================
+SecureSight Detailed Run Report — run_1
+Generated: 2026-05-03T18:08:53.125368
+==========================================================================================
+
+Batch ID: batch_4
+Run ID: run_1
+Start time: 2026-05-03T18:08:46.735460
+End time:   2026-05-03T18:08:46.762271
+Duration:   0:00:00
+Total epochs: 20
+
+HYPERPARAMETERS:
+  learning_rate: 0.0001
+  batch_size: 64
+  dropout: 0.1
+  optimizer: adamw
+  weight_decay: 1e-05
+  seed: 58
+
+FINAL METRICS:
+  Accuracy:  0.8858
+  Precision: 0.8667
+  Recall:    0.8995
+  F1 Score:  0.8828
+  AUC:       0.8996
+
+LATENCY STATISTICS (milliseconds):
+  Mean:   9.60 ms
+  Std:    6.91 ms
+  P95:    22.82 ms
+  P99:    33.82 ms
+
+PER-CLASS PERFORMANCE:
+  Normal:
+    Precision: 0.8861
+    Recall:    0.8934
+    F1:        0.8871
+    Support:   105
+  Exploit:
+    Precision: 0.8859
+    Recall:    0.8638
+    F1:        0.8589
+    Support:   97
+  Backdoor:
+    Precision: 0.9013
+    Recall:    0.8968
+    F1:        0.8958
+    Support:   102
+  Poisoning:
+    Precision: 0.8877
+    Recall:    0.8939
+    F1:        0.9029
+    Support:   108
+
+EPOCH-BY-EPOCH PERFORMANCE:
+  Epoch | Train Loss | Train Acc | Train F1 | Val Loss | Val Acc | Val F1
+  ---------------------------------------------------------------------------
+      1 |     0.4099 |    0.8286 |   0.8151 |   0.4704 |  0.8063 | 0.7928
+      2 |     0.4176 |    0.8452 |   0.8205 |   0.4584 |  0.8205 | 0.7958
+      3 |     0.3768 |    0.8259 |   0.7886 |   0.3956 |  0.7957 | 0.7718
+      4 |     0.3398 |    0.8384 |   0.8330 |   0.3653 |  0.8191 | 0.7988
+      5 |     0.3331 |    0.8611 |   0.8296 |   0.3706 |  0.8351 | 0.8067
+      6 |     0.3180 |    0.8860 |   0.8659 |   0.3268 |  0.8742 | 0.8337
+      7 |     0.3202 |    0.8554 |   0.8221 |   0.3541 |  0.8428 | 0.8038
+      8 |     0.2997 |    0.8795 |   0.8447 |   0.3153 |  0.8549 | 0.8353
+      9 |     0.2949 |    0.8724 |   0.8556 |   0.3172 |  0.8456 | 0.8417
+     10 |     0.2946 |    0.9068 |   0.8784 |   0.3184 |  0.8901 | 0.8682
+     11 |     0.2504 |    0.9031 |   0.8721 |   0.2565 |  0.8913 | 0.8656
+     12 |     0.2446 |    0.9225 |   0.9062 |   0.2617 |  0.9061 | 0.9015
+     13 |     0.2313 |    0.9356 |   0.8894 |   0.2777 |  0.9165 | 0.8665
+     14 |     0.2198 |    0.9076 |   0.8854 |   0.2570 |  0.9024 | 0.8602
+     15 |     0.1878 |    0.9300 |   0.9191 |   0.2244 |  0.9047 | 0.9043
+     16 |     0.1919 |    0.9522 |   0.9252 |   0.2154 |  0.9283 | 0.8905
+     17 |     0.1819 |    0.9526 |   0.9327 |   0.2072 |  0.9185 | 0.9085
+     18 |     0.1551 |    0.9495 |   0.9279 |   0.1932 |  0.9483 | 0.9096
+     19 |     0.1532 |    0.9643 |   0.9251 |   0.1826 |  0.9449 | 0.9297
+     20 |     0.1302 |    0.9755 |   0.9552 |   0.1368 |  0.9669 | 0.9427
+
+PLOTS GENERATED:
+  ✓ training_loss.png - Training vs Validation Loss
+  ✓ val_loss.png - Validation Loss Curve
+  ✓ accuracy.png - Training vs Validation Accuracy
+  ✓ f1.png - Training vs Validation F1 Score
+  ✓ roc_curve.png - ROC Curve (One-vs-Rest)
+  ✓ pr_curve.png - Precision-Recall Curve
+  ✓ confusion_matrix.png - Confusion Matrix Heatmap
+  ✓ per_class_bar.png - Per-Class Metrics (Precision, Recall, F1)
+  ✓ radar_per_class.png - Per-Class Recall Radar Chart
+  ✓ latency.png - Inference Latency Distribution
+
+==========================================================================================
+End of Report
+==========================================================================================

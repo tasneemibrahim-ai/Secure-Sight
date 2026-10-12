@@ -1,0 +1,41 @@
+{
+  "total_frames": 10,
+  "total_alerts": 0,
+  "fps_stats": {
+    "current_fps": 14.9,
+    "rolling_avg_fps": 14.9,
+    "peak_fps": 17.9,
+    "min_fps": 14.9,
+    "overall_avg_fps": 16.5,
+    "total_frames": 10,
+    "elapsed_seconds": 0.9
+  },
+  "latency_stats": {
+    "inference": {
+      "mean_ms": 3.95,
+      "min_ms": 0.15,
+      "max_ms": 37.69,
+      "latest_ms": 0.23
+    },
+    "acquisition": {
+      "mean_ms": 83.5,
+      "min_ms": 49.0,
+      "max_ms": 243.66,
+      "latest_ms": 81.17
+    },
+    "end_to_end": {
+      "mean_ms": 90.24,
+      "min_ms": 49.72,
+      "max_ms": 300.15,
+      "latest_ms": 82.29
+    },
+    "total_frames": 10
+  },
+  "telemetry_summary": {
+    "total_records": 10,
+    "total_alerts": 0,
+    "duration_s": 0.9,
+    "alert_classes": []
+  },
+  "alerts": []
+}

@@ -1,0 +1,120 @@
+{
+  "project_root": "e:\\tasnim\\Semester 8\\Graduation project model",
+  "timestamp": "2026-05-17T23:44:14.429121",
+  "model": {
+    "class_names": [
+      "Arrest",
+      "Arson",
+      "Explosion",
+      "Normal",
+      "Physical_Violence",
+      "RoadAccidents",
+      "Shooting",
+      "Theft",
+      "Vandalism"
+    ],
+    "config": {
+      "feature_dim": 2560,
+      "num_classes": 9,
+      "hidden_1": 512,
+      "hidden_2": 256,
+      "dropout": 0.3,
+      "estimated_params": 1444873,
+      "estimated_flops": 2888192,
+      "estimated_size_mb": 5.5
+    },
+    "architecture": "EfficientNet-B0 -> Linear(2560->512) -> ReLU -> Dropout(0.3) -> Linear(512->256) -> ReLU -> Dropout(0.15) -> Linear(256->9)",
+    "feature_dim": 2560,
+    "num_classes": 9
+  },
+  "components": {
+    "model_def": true,
+    "inference": true,
+    "config": true,
+    "dataset": true,
+    "train": true,
+    "api": true,
+    "eval_utils": true,
+    "onnx_export": true,
+    "benchmark": true,
+    "fps_test": true,
+    "latency_test": true,
+    "device_sim": true,
+    "dashboard": true
+  },
+  "dependencies": {
+    "torch": {
+      "available": false,
+      "version": null
+    },
+    "numpy": {
+      "available": false,
+      "version": null
+    },
+    "torchvision": {
+      "available": false,
+      "version": null
+    },
+    "timm": {
+      "available": false,
+      "version": null
+    },
+    "sklearn": {
+      "available": false,
+      "version": null
+    },
+    "PIL": {
+      "available": false,
+      "version": null
+    },
+    "cv2": {
+      "available": false,
+      "version": null
+    },
+    "fastapi": {
+      "available": false,
+      "version": null
+    },
+    "onnx": {
+      "available": false,
+      "version": null
+    },
+    "onnxruntime": {
+      "available": false,
+      "version": null
+    },
+    "psutil": {
+      "available": false,
+      "version": null
+    }
+  },
+  "dataset": {
+    "status": "FOUND"
+  },
+  "checkpoint": {
+    "exists": false,
+    "path": null
+  },
+  "simulation": {
+    "mode": "DEMO",
+    "feature_pipeline": "PARTIAL",
+    "readiness_score": 35,
+    "scores": {
+      "components": 20,
+      "dependencies": 0,
+      "model_weights": 0,
+      "dataset": 10,
+      "feature_pipeline": 5
+    }
+  },
+  "health": {
+    "blockers": [
+      "CRITICAL: torch not installed",
+      "CRITICAL: numpy not installed"
+    ],
+    "warnings": [
+      "Model weights (best_model.pth) not found - DEMO mode only"
+    ]
+  },
+  "recommended_run_command": "python SECURESIGHT_SIMULATION_MANIFEST.py --mode auto --runs 50"
+}

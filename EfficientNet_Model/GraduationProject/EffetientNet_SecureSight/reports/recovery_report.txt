@@ -1,0 +1,140 @@
+================================================================================
+  SECURESIGHT PROJECT RECOVERY REPORT
+  Generated: 2026-05-16
+================================================================================
+
+PROJECT NAME: SecureSight - AI Video Anomaly Detection
+MODEL: EfficientNet-B0 Feature Classifier (2560-dim → 9 classes)
+CLASSES: Arrest, Arson, Explosion, Normal, Physical_Violence, RoadAccidents,
+         Shooting, Theft, Vandalism
+
+================================================================================
+  RECOVERED FILES SUMMARY
+================================================================================
+
+TOTAL FILES RECOVERED: 68 files + evaluation data tree
+
+--- MODELS (3 files) ---
+  ✓ model.py              - FeatureClassifier (nn.Module), 2560→512→256→9
+  ✓ inference.py           - SecureSightInference class, predict_features/npz
+  ✓ check_shape.py         - Shape verification utility
+
+--- CONFIGS (4 files) ---
+  ✓ config.py              - Full project configuration (paths, hyperparams, model)
+  ✓ requirements.txt       - Dependencies (torch, torchvision, timm, sklearn, etc.)
+  ✓ path_setup.py          - Path initialization module
+  ✓ .mcp.json              - MCP configuration
+
+--- TRAINING (15 files) ---
+  ✓ train.py               - Main Trainer class with FocalLoss, AMP, early stopping
+  ✓ run.sh                 - Server training shell script
+  ✓ run_tracker.py         - Run tracking module
+  ✓ eval_tracker.py        - Full evaluation tracker (51KB, comprehensive)
+  ✓ run_final_pipeline.py  - Final pipeline orchestrator (24KB)
+  ✓ server_efficientnet_pipeline.py - Full server pipeline (21KB, batches 5-9)
+  ✓ server_features_batch_rerun.py  - Batch rerun logic
+  ✓ rerun_pipeline_25.py   - 25-run pipeline
+  ✓ rerun_batches.py       - Batch rerunner
+  ✓ autonomous_fix_pipeline.py - Autonomous fixing pipeline
+  ✓ complete_batches_demo.py    - Batch completion demo
+  ✓ complete_final_batches.py   - Final batch completion
+  ✓ complete_missing_runs.py    - Missing run completion
+  ✓ final_completion_demo.py    - Final completion orchestration
+  ✓ quick_finish.py             - Quick finish utility
+
+--- PREPROCESSING (5 files) ---
+  ✓ dataset.py             - VideoFrameDataset (npz features + image mode)
+  ✓ dataset_clean_split.py - Video-level leak-free train/val split
+  ✓ perform_leakage_fix.py - Data leakage detection and fix
+  ✓ video_leakage_check.py - Video overlap checker
+  ✓ secure_leakage_reconstruction.py - Leakage reconstruction
+
+--- EVALUATION (18 files + data tree) ---
+  ✓ utils.py               - Metrics (accuracy, precision, recall, F1, AUC), latency
+  ✓ diagnostics.py         - Model diagnostics (16KB)
+  ✓ statistical_analysis.py - Full statistical analysis (22KB)
+  ✓ statistical_analysiss.py - Alternative analysis script
+  ✓ statistical_analysis_generator.py - Report generator (42KB)
+  ✓ statistical_analysis_examples.py  - Analysis examples
+  ✓ run_statistical_analysis.py       - Analysis runner
+  ✓ aggregate_batches_evaluation.py   - Batch aggregation
+  ✓ final_eval_best_run.py            - Best run evaluation
+  ✓ generate_reports.py               - Report generation
+  ✓ regenerate_eval_comparisons.py    - Comparison regeneration
+  ✓ regenerate_global.py              - Global metrics regeneration
+  ✓ regenerate_metrics.py             - Metrics regeneration (tasnim/)
+  ✓ regenerate_metrics_root.py        - Metrics regeneration (root)
+  ✓ fill_report_tables.py             - Word report table filler
+  ✓ verify_report.py                  - Report verification
+  ✓ run_visual_analytics_demo.py      - Visual analytics
+  ✓ continue_visual_analytics_demo.py - Continued visual analytics
+  ✓ data/                  - Full evaluation data tree:
+      ├── batches_comparison/
+      ├── detailed_batches/ (batch_1 through batch_5, 5 runs each)
+      │   └── run_N/ (epoch_results.csv, run_summary.json, report.txt, plots/)
+      └── global_analysis/
+          ├── global_plots/ (8 PNG charts)
+          ├── global_reports/ (GLOBAL_REPORT.txt, GLOBAL_STATS.json, PDFs)
+          └── statistical_analysis/ (logs, plots, raw_data, reports, summary)
+
+--- NOTEBOOKS (6 files) ---
+  ✓ fill_table_stats.ipynb
+  ✓ fill_table_stats2.ipynb
+  ✓ fill_table_stats3.ipynb
+  ✓ generate_evaluation_reports.ipynb
+  ✓ update_report_tables.ipynb
+  ✓ run_complete_missing_runs.ipynb
+
+--- DEPLOYMENT (5 files) ---
+  ✓ api.py                 - FastAPI deployment server (SecureSight API)
+  ✓ dashboard.html         - Real-time monitoring Command Center (Chart.js)
+  ✓ deploy_and_train.ps1   - Full deploy-train-download PowerShell script
+  ✓ download_results.ps1   - Results download script
+  ✓ sync_eval_from_server.py - Server evaluation sync
+
+--- SERVER RECOVERY (5 files) ---
+  ✓ remote_securesight.py  - Remote server management (paramiko SSH)
+  ✓ ssh_executor.py        - SSH command executor
+  ✓ encoded_cmd.txt        - Encoded commands
+  ✓ encode_cmd.py          - Command encoder
+  ✓ final_step_execution.py - Final execution step
+
+--- REPORTS (7 files) ---
+  ✓ Secure Sight Full Evaluation Report.pdf    (1.06 MB)
+  ✓ Secure Sight Statistical Analysis Report.pdf (1.83 MB)
+  ✓ README.md
+  ✓ IMPLEMENTATION_SUMMARY.md
+  ✓ STATISTICAL_ANALYSIS_README.md
+  ✓ VISUAL_ANALYTICS_QUICKSTART.md
+  ✓ VISUAL_ANALYTICS_README.md
+
+--- ENVIRONMENTS (2 files) ---
+  ✓ requirements.txt
+  ✓ detected_python_envs.txt
+
+================================================================================
+  PROJECT ARCHITECTURE SUMMARY
+================================================================================
+
+SecureSight uses a FEATURE-BASED approach:
+  1. EfficientNet-B0 extracts 2560-dim features from video frames → .npz files
+  2. FeatureClassifier (MLP: 2560→512→256→9) classifies pre-extracted features
+  3. Training uses Focal Loss, AdamW, mixed precision (AMP), early stopping
+  4. 9-class anomaly classification on UCF-Crime-derived dataset
+  5. Extensive hyperparameter search across batches 1-9, 5 runs per batch
+
+Training Config:
+  - Batch Size: 32, LR: 5e-5, Weight Decay: 1e-5
+  - Optimizer: AdamW, Epochs: 50, Early Stopping Patience: 10
+  - Focal Loss (gamma=2.0), Mixed Precision enabled
+  - Weighted Random Sampling for class imbalance
+
+Server Setup:
+  - Host: 10.55.205.205, User: secure-sight
+  - Code Root: /home/secure-sight/Code
+  - Dataset: /home/secure-sight/Code/extracted_features_merged
+  - Clean Split: /home/secure-sight/Code/clean_split
+
+================================================================================
+  RECOVERY STATUS: SUCCESSFUL (68+ files recovered)
+================================================================================

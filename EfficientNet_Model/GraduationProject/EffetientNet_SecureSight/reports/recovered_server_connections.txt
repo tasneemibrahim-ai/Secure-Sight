@@ -1,0 +1,130 @@
+================================================================================
+  SECURESIGHT - RECOVERED SERVER CONNECTIONS
+  Generated: 2026-05-16
+================================================================================
+
+================================================================================
+  1. SSH CONNECTIONS (from ~/.ssh/known_hosts)
+================================================================================
+
+Host: 10.55.205.205
+Algorithms Found:
+  - ssh-ed25519: AAAAC3NzaC1lZDI1NTE5AAAAINJ45aNjYyo2PXW+xD8jhjPY4ZiquziRZWwBAc8L0xcy
+  - ssh-rsa:     AAAAB3NzaC1yc2EAAAADAQABAAABgQCup48QHm... (truncated)
+  - ecdsa-sha2-nistp256: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAI... (truncated)
+
+Status: Host keys are cached locally (server was previously trusted)
+Note:   No SSH private keys found in ~/.ssh/ (password auth was used)
+
+================================================================================
+  2. SERVER CREDENTIALS (from project scripts)
+================================================================================
+
+Source: deploy_and_train.ps1
+  Host:     10.55.205.205
+  Username: secure-sight
+  Remote Dir: /home/secure-sight/tasnim
+  Auth:     Password-based (via SSH)
+
+Source: download_results.ps1
+  Host:     10.55.205.205
+  Username: secure-sight
+  Remote Dir: /home/secure-sight/SecureSight
+
+Source: remote_securesight.py
+  Host:     10.55.205.205
+  Username: secure-sight
+  Auth:     Password via env var SECURESIGHT_SSH_PASSWORD
+  Remote Project Dir: /home/secure-sight/Code/extracted_features_merged
+  Remote Backup Root: /home/secure-sight/Code/backup_previous_runs
+
+Source: ssh_executor.py (scratch/)
+  Host:     10.55.205.205
+  Username: secure-sight
+  Auth:     Hardcoded password found (S#SiT#$38337)
+
+Source: run.sh
+  SSH command: ssh secure-sight@10.55.205.205
+
+================================================================================
+  3. REMOTE DIRECTORY STRUCTURE (from code references)
+================================================================================
+
+/home/secure-sight/
+├── Code/
+│   ├── extracted_features_merged/     (main dataset)
+│   │   ├── Normal_Videos/
+│   │   └── Anomaly_Videos/
+│   ├── extracted_featuers_merged_split/
+│   │   └── Val/
+│   ├── clean_split/                   (leak-free split)
+│   │   ├── train/
+│   │   └── val/
+│   ├── output/
+│   │   ├── checkpoints/
+│   │   │   └── best_model.pth         *** CRITICAL - DOWNLOAD THIS ***
+│   │   ├── logs/
+│   │   └── evaluation/
+│   ├── runs/
+│   ├── logs/
+│   ├── results/
+│   ├── tensorboard/
+│   └── backup_previous_runs/
+├── SecureSight/                        (alternative project location)
+│   └── outputs/
+└── tasnim/                            (deployed code)
+    └── outputs/
+        ├── logs/
+        ├── runs/
+        └── checkpoints/
+            └── best_model.pth         *** ALSO CHECK HERE ***
+
+================================================================================
+  4. REMOTE OUTPUT PATHS MONITORED
+================================================================================
+
+From remote_securesight.py REMOTE_OUTPUT_CANDIDATES:
+  /home/secure-sight/Code/runs
+  /home/secure-sight/Code/run
+  /home/secure-sight/Code/logs
+  /home/secure-sight/Code/log
+  /home/secure-sight/Code/outputs
+  /home/secure-sight/Code/output
+  /home/secure-sight/Code/checkpoints
+  /home/secure-sight/Code/checkpoint
+  /home/secure-sight/Code/eval
+  /home/secure-sight/Code/evaluation
+  /home/secure-sight/Code/results
+  /home/secure-sight/Code/result
+  /home/secure-sight/Code/tensorboard
+  /home/secure-sight/tasnim/outputs
+  /home/secure-sight/tasnim/evaluation
+  /home/secure-sight/tasnim/train_log.txt
+
+================================================================================
+  5. MobaXterm / WinSCP / FileZilla / PyCharm
+================================================================================
+
+  MobaXterm sessions: Not found (standard install paths checked)
+  WinSCP sessions:    Not found
+  FileZilla sessions: Not found
+  PyCharm projects:   Not found
+
+  Note: Only SSH known_hosts and project-embedded credentials were found.
+
+================================================================================
+  6. RECOVERY RECOMMENDATIONS
+================================================================================
+
+  PRIORITY 1: Try to reconnect to 10.55.205.205
+    ssh secure-sight@10.55.205.205
+    Password: (use SECURESIGHT_SSH_PASSWORD env var or recovered credential)
+
+  PRIORITY 2: If connected, immediately download:
+    scp secure-sight@10.55.205.205:/home/secure-sight/tasnim/outputs/checkpoints/best_model.pth .
+    scp secure-sight@10.55.205.205:/home/secure-sight/Code/output/checkpoints/best_model.pth .
+
+  PRIORITY 3: Download the dataset features:
+    scp -r secure-sight@10.55.205.205:/home/secure-sight/Code/clean_split/ ./data/
+
+================================================================================

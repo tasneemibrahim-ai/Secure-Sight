@@ -1,0 +1,309 @@
+{
+  "session_start": 1779084628.895724,
+  "session_duration_s": 0.9,
+  "total_records": 10,
+  "total_alerts": 0,
+  "records": [
+    {
+      "timestamp": 1779084629.1974757,
+      "frame_index": 0,
+      "drone": {
+        "position": {
+          "x": 49.99000033332889,
+          "y": 0.999933334666654,
+          "z": -30.264356813554947
+        },
+        "gps": {
+          "latitude": 24.71359932717789,
+          "longitude": 46.67529884940238,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 3.02,
+        "heading_deg": 91.1,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Shooting",
+        "confidence": 0.2568,
+        "is_alert": false,
+        "latency_ms": 37.69
+      },
+      "pipeline": {
+        "fps": 0.0,
+        "e2e_latency_ms": 300.15
+      }
+    },
+    {
+      "timestamp": 1779084629.264016,
+      "frame_index": 1,
+      "drone": {
+        "position": {
+          "x": 49.977501687449376,
+          "y": 1.499775010124783,
+          "z": -30.073037034092348
+        },
+        "gps": {
+          "latitude": 24.713598472189837,
+          "longitude": 46.67529956158774,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 2.98,
+        "heading_deg": 91.7,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Arrest",
+        "confidence": 0.3306,
+        "is_alert": false,
+        "latency_ms": 0.17
+      },
+      "pipeline": {
+        "fps": 15.1,
+        "e2e_latency_ms": 65.6
+      }
+    },
+    {
+      "timestamp": 1779084629.3140585,
+      "frame_index": 2,
+      "drone": {
+        "position": {
+          "x": 49.9600053330489,
+          "y": 1.999466709331708,
+          "z": -29.92375059023463
+        },
+        "gps": {
+          "latitude": 24.713598219941993,
+          "longitude": 46.6752989581837,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 3.14,
+        "heading_deg": 92.3,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Arson",
+        "confidence": 0.3093,
+        "is_alert": false,
+        "latency_ms": 0.17
+      },
+      "pipeline": {
+        "fps": 17.2,
+        "e2e_latency_ms": 49.95
+      }
+    },
+    {
+      "timestamp": 1779084629.364815,
+      "frame_index": 3,
+      "drone": {
+        "position": {
+          "x": 49.937513019748316,
+          "y": 2.4989584635339166,
+          "z": -29.91851985860169
+        },
+        "gps": {
+          "latitude": 24.713598980652748,
+          "longitude": 46.675298094992705,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 2.92,
+        "heading_deg": 92.9,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Vandalism",
+        "confidence": 0.2444,
+        "is_alert": false,
+        "latency_ms": 0.2
+      },
+      "pipeline": {
+        "fps": 17.9,
+        "e2e_latency_ms": 50.69
+      }
+    },
+    {
+      "timestamp": 1779084629.444084,
+      "frame_index": 4,
+      "drone": {
+        "position": {
+          "x": 49.91002699676021,
+          "y": 2.99820032397223,
+          "z": -29.74807553400522
+        },
+        "gps": {
+          "latitude": 24.7135999696787,
+          "longitude": 46.675298242533046,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 3.35,
+        "heading_deg": 93.4,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Normal",
+        "confidence": 0.3417,
+        "is_alert": false,
+        "latency_ms": 0.22
+      },
+      "pipeline": {
+        "fps": 16.2,
+        "e2e_latency_ms": 79.19
+      }
+    },
+    {
+      "timestamp": 1779084629.4938977,
+      "frame_index": 5,
+      "drone": {
+        "position": {
+          "x": 49.87755001266398,
+          "y": 3.4971423668766386,
+          "z": -30.113766164417285
+        },
+        "gps": {
+          "latitude": 24.713600226053956,
+          "longitude": 46.675298217292394,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 3.5,
+        "heading_deg": 94.0,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Arrest",
+        "confidence": 0.2576,
+        "is_alert": false,
+        "latency_ms": 0.15
+      },
+      "pipeline": {
+        "fps": 16.9,
+        "e2e_latency_ms": 49.72
+      }
+    },
+    {
+      "timestamp": 1779084629.5448968,
+      "frame_index": 6,
+      "drone": {
+        "position": {
+          "x": 49.84008531513097,
+          "y": 3.9957346984586346,
+          "z": -30.15799018910226
+        },
+        "gps": {
+          "latitude": 24.713600792612095,
+          "longitude": 46.675298011619915,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 2.76,
+        "heading_deg": 94.6,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Theft",
+        "confidence": 0.3381,
+        "is_alert": false,
+        "latency_ms": 0.22
+      },
+      "pipeline": {
+        "fps": 17.3,
+        "e2e_latency_ms": 50.92
+      }
+    },
+    {
+      "timestamp": 1779084629.595069,
+      "frame_index": 7,
+      "drone": {
+        "position": {
+          "x": 49.79763665059971,
+          "y": 4.493927459900552,
+          "z": -29.707977959607295
+        },
+        "gps": {
+          "latitude": 24.713600129798476,
+          "longitude": 46.67529711443676,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 2.53,
+        "heading_deg": 95.2,
+        "battery_percent": 99.9
+      },
+      "inference": {
+        "predicted_class": "Vandalism",
+        "confidence": 0.3428,
+        "is_alert": false,
+        "latency_ms": 0.21
+      },
+      "pipeline": {
+        "fps": 17.6,
+        "e2e_latency_ms": 50.03
+      }
+    },
+    {
+      "timestamp": 1779084629.7190633,
+      "frame_index": 8,
+      "drone": {
+        "position": {
+          "x": 49.75020826390129,
+          "y": 4.991670832341407,
+          "z": -30.121965977218572
+        },
+        "gps": {
+          "latitude": 24.713600558785906,
+          "longitude": 46.6752965984526,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 2.91,
+        "heading_deg": 95.7,
+        "battery_percent": 99.8
+      },
+      "inference": {
+        "predicted_class": "Theft",
+        "confidence": 0.2038,
+        "is_alert": false,
+        "latency_ms": 0.2
+      },
+      "pipeline": {
+        "fps": 15.3,
+        "e2e_latency_ms": 123.88
+      }
+    },
+    {
+      "timestamp": 1779084629.801453,
+      "frame_index": 9,
+      "drone": {
+        "position": {
+          "x": 49.69780489783484,
+          "y": 5.48891504185874,
+          "z": -29.797623370298034
+        },
+        "gps": {
+          "latitude": 24.713601488339357,
+          "longitude": 46.67529613734586,
+          "altitude": 642.0
+        },
+        "altitude_agl_m": 30.0,
+        "speed_ms": 3.39,
+        "heading_deg": 96.3,
+        "battery_percent": 99.8
+      },
+      "inference": {
+        "predicted_class": "Normal",
+        "confidence": 0.2858,
+        "is_alert": false,
+        "latency_ms": 0.23
+      },
+      "pipeline": {
+        "fps": 14.9,
+        "e2e_latency_ms": 82.29
+      }
+    }
+  ],
+  "alerts": []
+}

@@ -1,0 +1,160 @@
+================================================================================
+  SECURESIGHT — PROJECT STRUCTURE MAP
+  Complete guide to the recovered + extended deployment workspace
+================================================================================
+
+Securesight/
+│
+├── models/                          ★ MODEL ARCHITECTURE
+│   ├── model.py                     Core FeatureClassifier (2560→512→256→9)
+│   ├── inference.py                 SecureSightInference class for deployment
+│   └── check_shape.py              Shape verification utility
+│
+├── configs/                         ★ PROJECT CONFIGURATION
+│   ├── config.py                    All hyperparameters, paths, training config
+│   ├── requirements.txt            Python dependencies
+│   ├── path_setup.py               Path initialization module
+│   └── .mcp.json                   MCP configuration
+│
+├── training/                        ★ TRAINING PIPELINE
+│   ├── train.py                     Main Trainer class (FocalLoss, AMP)
+│   ├── run.sh                       Server training shell script
+│   ├── eval_tracker.py              Comprehensive evaluation tracker (51KB)
+│   ├── run_final_pipeline.py        Final pipeline orchestrator
+│   ├── server_efficientnet_pipeline.py  Full 25-run server pipeline
+│   ├── server_features_batch_rerun.py   Batch rerun logic
+│   ├── rerun_pipeline_25.py         25-run rerun pipeline
+│   ├── rerun_batches.py             Batch rerunner
+│   ├── run_tracker.py               Run tracking module
+│   ├── autonomous_fix_pipeline.py   Auto-fix pipeline
+│   ├── complete_batches_demo.py     Batch completion demo
+│   ├── complete_final_batches.py    Final batch completion
+│   ├── complete_missing_runs.py     Missing run recovery
+│   ├── final_completion_demo.py     Final completion orchestrator
+│   └── quick_finish.py              Quick finish utility
+│
+├── preprocessing/                   ★ DATA PIPELINE
+│   ├── dataset.py                   VideoFrameDataset (npz + image mode)
+│   ├── dataset_clean_split.py       Video-level leak-free split builder
+│   ├── perform_leakage_fix.py       Data leakage detection & fix
+│   ├── video_leakage_check.py       Video overlap checker
+│   └── secure_leakage_reconstruction.py  Leakage reconstruction
+│   ⚠ MISSING: EfficientNet feature extraction script
+│
+├── evaluation/                      ★ EVALUATION & METRICS
+│   ├── utils.py                     Core metrics (acc, prec, recall, F1, AUC)
+│   ├── diagnostics.py               Model diagnostics suite
+│   ├── statistical_analysis.py      Full statistical analysis (22KB)
+│   ├── statistical_analysis_generator.py  Report generator (42KB)
+│   ├── aggregate_batches_evaluation.py    Batch aggregation
+│   ├── final_eval_best_run.py       Best run evaluation
+│   ├── generate_reports.py          Report generation
+│   ├── fill_report_tables.py        Word report table filler
+│   ├── verify_report.py             Report verification
+│   ├── run_visual_analytics_demo.py Visual analytics
+│   ├── (+ more analysis scripts)
+│   └── data/                        Historical evaluation data:
+│       ├── detailed_batches/        5 batches × 5 runs (CSV, JSON, plots)
+│       └── global_analysis/         Global plots, reports, statistics
+│
+├── notebooks/                       ★ JUPYTER NOTEBOOKS
+│   ├── fill_table_stats.ipynb       Table statistics
+│   ├── fill_table_stats2.ipynb      Extended table stats
+│   ├── fill_table_stats3.ipynb      Further table stats
+│   ├── generate_evaluation_reports.ipynb  Report generation
+│   ├── update_report_tables.ipynb   Report table updates
+│   └── run_complete_missing_runs.ipynb    Missing run completion
+│
+├── deployment/                      ★ DEPLOYMENT CODE (original)
+│   ├── api.py                       FastAPI server for inference
+│   ├── dashboard.html               Real-time monitoring Command Center
+│   ├── deploy_and_train.ps1         Deploy → Train → Download script
+│   ├── download_results.ps1         Results download from server
+│   └── sync_eval_from_server.py     Server evaluation sync
+│
+├── deployment_simulation/           ★ LOCAL DEPLOYMENT SIM [NEW]
+│   ├── run_inference.py             ★ Inference starter (works now!)
+│   └── real_time_emulator.py        Camera feed simulation (placeholder)
+│
+├── benchmarking/                    ★ PERFORMANCE TESTING [NEW]
+│   ├── model_benchmark.py           Throughput benchmark suite
+│   └── benchmark_report_generator.py Report aggregation
+│
+├── edge_emulation/                  ★ EDGE DEVICE SIMULATION [NEW]
+│   └── device_simulator.py          Multi-device deployment sim
+│
+├── runtime_tests/                   ★ RUNTIME ANALYSIS [NEW]
+│   ├── runtime_profiler.py          Layer-by-layer profiling
+│   ├── fps_test.py                  FPS throughput testing
+│   └── latency_test.py              Latency SLA validation
+│
+├── exports/                         ★ MODEL EXPORT [NEW]
+│   └── export_onnx.py               ONNX export utility
+│
+├── sample_inputs/                   ★ TEST DATA [NEW]
+│   ├── README.txt                   Expected input format docs
+│   └── PLACEHOLDERS.txt             Placeholder file listing
+│
+├── server_recovery/                 ★ SERVER CONNECTION INFO
+│   ├── remote_securesight.py        SSH management (paramiko)
+│   ├── ssh_executor.py              SSH command executor
+│   ├── encode_cmd.py                Command encoder
+│   ├── encoded_cmd.txt              Encoded commands
+│   └── final_step_execution.py      Final execution step
+│
+├── environment_setup/               ★ ENVIRONMENT [NEW]
+│   ├── requirements.txt             Dependencies
+│   ├── detected_python_envs.txt     Detected environments
+│   ├── install_requirements.bat     Windows installer
+│   ├── install_requirements.sh      Linux installer
+│   └── setup_environment_guide.txt  Comprehensive setup guide
+│
+├── environments/                    ★ ENVIRONMENT (original)
+│   ├── requirements.txt             Dependencies (original copy)
+│   └── detected_python_envs.txt     Python env detection results
+│
+├── reports/                         ★ ALL REPORTS
+│   ├── recovery_report.txt          File recovery inventory
+│   ├── missing_files_report.txt     Missing critical files
+│   ├── recovered_server_connections.txt  SSH & server details
+│   ├── deployment_readiness_report.txt  Deployment assessment [NEW]
+│   ├── project_structure_map.txt    This file [NEW]
+│   ├── final_reconstruction_status.txt  Final status [NEW]
+│   ├── Secure Sight Full Evaluation Report.pdf
+│   ├── Secure Sight Statistical Analysis Report.pdf
+│   ├── README.md, IMPLEMENTATION_SUMMARY.md
+│   ├── STATISTICAL_ANALYSIS_README.md
+│   ├── VISUAL_ANALYTICS_QUICKSTART.md
+│   └── VISUAL_ANALYTICS_README.md
+│
+├── results/                         ★ BENCHMARK RESULTS [NEW]
+│   └── (populated when benchmarks are run)
+│
+├── visualizations/                  ★ GENERATED CHARTS [NEW]
+│   └── (populated by benchmark_report_generator.py)
+│
+├── logs/                            ★ RUNTIME LOGS [NEW]
+│   └── (populated during testing)
+│
+└── unknown_files/                   ★ UNCATEGORIZED
+    └── run_tracker_root.py          Root-level tracker import
+
+================================================================================
+  CRITICAL MISSING FILES
+================================================================================
+
+  ✘ best_model.pth — Trained model weights (was on server only)
+  ✘ Feature extraction script — EfficientNet-B0 frame→feature pipeline
+  ✘ UCF-Crime dataset features (.npz) — Training/validation data
+
+================================================================================
+  DEPLOYMENT-RELEVANT COMPONENT MAP
+================================================================================
+
+  INFERENCE:  models/model.py + models/inference.py + deployment/api.py
+  TESTING:    deployment_simulation/run_inference.py
+  BENCHMARK:  benchmarking/model_benchmark.py + runtime_tests/*
+  EDGE:       edge_emulation/device_simulator.py + exports/export_onnx.py
+  DEPLOY:     deployment/api.py + deployment/dashboard.html
+
+================================================================================

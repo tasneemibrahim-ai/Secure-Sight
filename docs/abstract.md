@@ -1,0 +1,13 @@
+# SecureSight — Graduation Project Abstract
+
+Here is the updated, highly detailed, and academic-grade abstract for your graduation project book. It corrects the web framework details (replacing Flask with the actual React + Node/Express + MySQL stack) and adds exact model architecture specifications (ResNet-50 + R(2+1)D-18 feature fusion with a 4-layer Vision Transformer encoder).
+
+---
+
+## Abstract
+
+**Abstract—** SecureSight is an intelligent, real-time video anomaly detection system designed for smart surveillance applications. The system processes live or uploaded video streams and raises automated alerts to relevant responders upon detecting abnormal activities. The core anomaly detection model is built on a hybrid deep learning architecture that fuses spatial features extracted via a pre-trained ResNet-50 network with temporal features extracted using an R(2+1)D-18 video network. These concatenated representations are projected into a unified feature space and processed by a 4-layer Vision Transformer (ViT) temporal encoder with 8-head self-attention to classify activities into nine distinct security categories based on the UCF Crime dataset.
+
+To optimize detection accuracy, the model was trained using supervised learning guided by official temporal annotations, increasing classification accuracy to approximately 70%, which significantly outperformed early experiments using manually extracted, frame-level features (50-60% accuracy). Furthermore, metaheuristic evolutionary optimization algorithms—specifically Grey Wolf Optimization (GWO), Particle Swarm Optimization (PSO), Spider Monkey Optimization (SMO), Shuffled Frog Leaping Algorithm (SFLA), and Harris Hawks Optimization (HHO)—were comprehensively evaluated for hyperparameters search, but the baseline Vision Transformer configuration was ultimately retained as it yielded the most stable performance.
+
+The end-to-end system is deployed via a decoupled client-server architecture. The frontend is built on React 18, Vite, and Tailwind CSS, presenting role-based dashboards tailored for public safety entities (Police, Hospital, Firefighters, and Administrators). The backend is powered by a Node.js and Express API gateway paired with a MySQL database to manage authentication, alert dispatching, and logs, communicating with a PyTorch model inference engine. To minimize false positives, the system implements inference-time safeguards including confidence thresholding (set at 0.7) and temporal confirmation delays. Privacy concerns are strictly handled by conducting inference on-the-fly without persistent video storage. Overall, SecureSight presents a fully integrated, secure, and performant AI-driven surveillance solution with ethical safeguards.

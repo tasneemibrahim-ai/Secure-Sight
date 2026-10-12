@@ -1,0 +1,30 @@
+{
+  "manifest_version": "1.0",
+  "project": "SecureSight Drone Simulation",
+  "created": "2026-05-18",
+  "description": "Simulation manifest for drone-based real-time surveillance anomaly detection",
+  "model": {
+    "architecture": "EfficientNet-B0 + MLP Classifier",
+    "feature_dim": 2560,
+    "num_classes": 9,
+    "classes": [
+      "Arrest", "Arson", "Explosion", "Normal",
+      "Physical_Violence", "RoadAccidents", "Shooting", "Theft", "Vandalism"
+    ],
+    "mlp_layers": "2560 → 512 → 256 → 9",
+    "dropout": 0.3,
+    "modified": false
+  },
+  "simulation_modes": ["synthetic", "webcam", "video", "airsim"],
+  "drone_backend": ["mock", "airsim"],
+  "default_mode": "synthetic + mock",
+  "startup_command": "python START_SIMULATION.py",
+  "pipeline_stages": [
+    "Frame Acquisition",
+    "EfficientNet-B0 Feature Extraction (2560-dim)",
+    "MLP Classification (9-class)",
+    "Alert Generation",
+    "Telemetry Recording",
+    "Statistics Collection"
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "total_frames": 20,
+  "total_alerts": 3,
+  "fps_stats": {
+    "current_fps": 10.1,
+    "rolling_avg_fps": 10.1,
+    "peak_fps": 10.1,
+    "min_fps": 7.9,
+    "overall_avg_fps": 9.1,
+    "total_frames": 20,
+    "elapsed_seconds": 5.3
+  },
+  "latency_stats": {
+    "inference": {
+      "mean_ms": 0.69,
+      "min_ms": 0.24,
+      "max_ms": 6.49,
+      "latest_ms": 0.25
+    },
+    "acquisition": {
+      "mean_ms": 260.08,
+      "min_ms": 79.12,
+      "max_ms": 3375.23,
+      "latest_ms": 80.85
+    },
+    "end_to_end": {
+      "mean_ms": 262.44,
+      "min_ms": 80.32,
+      "max_ms": 3377.82,
+      "latest_ms": 82.04
+    },
+    "total_frames": 20
+  },
+  "telemetry_summary": {
+    "total_records": 20,
+    "total_alerts": 3,
+    "duration_s": 5.3,
+    "alert_classes": [
+      "Physical_Violence",
+      "Arrest",
+      "Explosion"
+    ]
+  },
+  "alerts": [
+    {
+      "timestamp": 1779084066.1259294,
+      "class": "Explosion",
+      "confidence": 0.6327,
+      "frame_index": 10,
+      "drone_position": {
+        "x": 49.64043179269331,
+        "y": 5.985610364445967,
+        "z": -29.95557653729587
+      },
+      "gps": {
+        "latitude": 24.713602884596014,
+        "longitude": 46.67530060647394,
+        "altitude": 642.0
+      },
+      "acknowledged": false
+    },
+    {
+      "timestamp": 1779084066.3964527,
+      "class": "Arrest",
+      "confidence": 0.5068,
+      "frame_index": 13,
+      "drone_position": {
+        "x": 49.43855389680211,
+        "y": 7.471906623679961,
+        "z": -30.185288417762813
+      },
+      "gps": {
+        "latitude": 24.713604043398995,
+        "longitude": 46.67529955178326,
+        "altitude": 642.0
+      },
+      "acknowledged": false
+    },
+    {
+      "timestamp": 1779084066.9159539,
+      "class": "Physical_Violence",
+      "confidence": 0.5371,
+      "frame_index": 19,
+      "drone_position": {
+        "x": 48.90154573620741,
+        "y": 10.42299499230498,
+        "z": -30.29132088198059
+      },
+      "gps": {
+        "latitude": 24.713603359226312,
+        "longitude": 46.67529912157765,
+        "altitude": 642.0
+      },
+      "acknowledged": false
+    }
+  ]
+}

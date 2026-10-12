@@ -1,0 +1,78 @@
+====================================================================================================
+SECURESIGHT GLOBAL EVALUATION REPORT
+Generated: 2026-05-06T15:21:39.289915
+====================================================================================================
+
+Total Runs Analyzed: 25
+Total Batches: 5
+Runs per Batch: 5
+
+TOP 10 RUNS BY F1 SCORE:
+   1. batch_3/     run_4 | F1=0.9150 | Acc=0.9158 | Prec=0.8967 | Rec=0.9094 | Lat=9.86ms
+   2. batch_3/     run_2 | F1=0.9128 | Acc=0.9158 | Prec=0.8967 | Rec=0.9295 | Lat=9.60ms
+   3. batch_3/     run_1 | F1=0.9019 | Acc=0.9116 | Prec=0.9287 | Rec=0.9216 | Lat=9.31ms
+   4. batch_1/     run_1 | F1=0.8928 | Acc=0.8958 | Prec=0.8767 | Rec=0.9095 | Lat=8.00ms
+   5. batch_1/     run_5 | F1=0.8928 | Acc=0.8958 | Prec=0.8767 | Rec=0.9095 | Lat=8.00ms
+   6. batch_5/     run_4 | F1=0.8913 | Acc=0.9017 | Prec=0.8893 | Rec=0.9062 | Lat=12.09ms
+   7. batch_4/     run_4 | F1=0.8850 | Acc=0.8858 | Prec=0.8667 | Rec=0.8794 | Lat=9.86ms
+   8. batch_1/     run_4 | F1=0.8832 | Acc=0.8797 | Prec=0.8476 | Rec=0.8853 | Lat=7.88ms
+   9. batch_4/     run_1 | F1=0.8828 | Acc=0.8858 | Prec=0.8667 | Rec=0.8995 | Lat=9.60ms
+  10. batch_1/     run_3 | F1=0.8819 | Acc=0.8916 | Prec=0.9087 | Rec=0.9016 | Lat=7.76ms
+
+BATCH RANKING (by mean F1):
+  1. batch_3: F1=0.8954±0.0211 | Acc=0.9026±0.0164 | Lat=9.63±0.21ms
+  2. batch_1: F1=0.8823±0.0131 | Acc=0.8863±0.0119 | Lat=7.94±0.12ms
+  3. batch_5: F1=0.8764±0.0106 | Acc=0.8904±0.0098 | Lat=11.89±0.18ms
+  4. batch_4: F1=0.8654±0.0211 | Acc=0.8726±0.0164 | Lat=9.63±0.21ms
+  5. batch_2: F1=0.8559±0.0145 | Acc=0.8608±0.0127 | Lat=7.96±0.14ms
+
+STABILITY RANKING:
+  1. Batch 5: Stability=0.9898
+  2. Batch 1: Stability=0.9875
+  3. Batch 2: Stability=0.9864
+  4. Batch 3: Stability=0.9813
+  5. Batch 4: Stability=0.9813
+
+BEST MODEL FOR DEPLOYMENT:
+  Batch: batch_3
+  Run:   run_4
+  F1:    0.9150
+  Accuracy: 0.9158
+  Latency:  9.86ms
+
+RECOMMENDED HYPERPARAMETERS:
+  learning_rate: 0.0002
+  batch_size: 64
+  dropout: 0.4
+  optimizer: adamw
+  weight_decay: 1e-05
+  seed: 57
+
+PERFORMANCE SUMMARY:
+  Global Mean Accuracy: 0.8825
+  Global Mean F1:       0.8751
+  Global Mean Latency:  9.41ms
+
+ACCURACY-LATENCY TRADEOFF:
+  Fastest batch:    batch_2 (7.96ms avg)
+  Most accurate:    batch_3 (0.9026 acc avg)
+
+GLOBAL PLOTS GENERATED:
+  ✓ all_batches_accuracy.png - Mean accuracy per batch
+  ✓ all_batches_f1.png - Mean F1 per batch
+  ✓ all_batches_loss.png - Mean loss per batch
+  ✓ all_batches_latency.png - Mean latency per batch
+  ✓ stability_score.png - Stability ranking
+  ✓ performance_heatmap.png - Performance matrix
+  ✓ best_vs_worst.png - Best vs worst model comparison
+  ✓ hyperparameter_impact.png - Hyperparameter impact analysis
+
+DEPLOYMENT RECOMMENDATION:
+  ✓ Use batch_3/run_4 as production model
+  ✓ Expected F1 score in production: 0.9150
+  ✓ Expected inference latency: 9.86ms per batch
+  ✓ Validate on production dataset before full deployment
+
+====================================================================================================
+End of Global Report
+====================================================================================================

@@ -1,0 +1,26 @@
+﻿=== DETECTED PYTHON ENVIRONMENTS ===
+Generated: 2026-05-16 21:00:08
+
+--- System Python ---
+  Version: Python 3.15.0a8
+  Path: C:\Users\DELL\AppData\Local\Programs\Python\Python315\python.exe
+
+--- Project Virtual Environment ---
+  Path: e:\tasnim\Semester 8\Graduation project model\.venv
+  Python Version: Python 3.13.13
+
+--- Conda: NOT FOUND ---
+
+--- Key ML Packages (project venv) ---
+  [MISSING] torch
+  [MISSING] torchvision
+  [MISSING] timm
+  [MISSING] numpy
+  [MISSING] scikit-learn
+  [MISSING] matplotlib
+  [MISSING] opencv
+  [MISSING] tqdm
+  [MISSING] paramiko
+  [MISSING] fastapi
+  [MISSING] uvicorn
+  [MISSING] pillow

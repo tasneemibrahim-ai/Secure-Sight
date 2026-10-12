@@ -1,0 +1,371 @@
+{
+  "report_version": "1.0",
+  "report_date": "2026-05-18T08:45:00+03:00",
+  "project_name": "SecureSight — Drone-Based Real-Time Surveillance Simulation System",
+  "report_type": "SIMULATION_SYSTEM_REPORT",
+
+  "architecture": {
+    "pipeline": [
+      "1. Drone Camera Feed (AirSim / Webcam / Video / Synthetic)",
+      "2. Frame Capture via FrameReceiver abstraction",
+      "3. EfficientNet-B0 Feature Extractor → 2560-dim vector",
+      "4. MLP Classifier (2560→512→256→9) with ReLU + Dropout",
+      "5. 9-Class Anomaly Detection with confidence scoring",
+      "6. Alert Generation + Telemetry Recording + Visualization"
+    ],
+    "model": {
+      "backbone": "EfficientNet-B0 (pretrained, frozen for feature extraction)",
+      "classifier": "MLP FeatureClassifier",
+      "feature_dim": 2560,
+      "num_classes": 9,
+      "mlp_topology": "Linear(2560,512) → ReLU → Dropout(0.3) → Linear(512,256) → ReLU → Dropout(0.15) → Linear(256,9)",
+      "dropout": 0.3,
+      "total_params_estimate": "~1.4M (classifier only)",
+      "model_modified": false,
+      "classes_modified": false,
+      "retraining_performed": false
+    },
+    "classes": [
+      {"index": 0, "name": "Arrest", "type": "anomaly"},
+      {"index": 1, "name": "Arson", "type": "anomaly"},
+      {"index": 2, "name": "Explosion", "type": "anomaly"},
+      {"index": 3, "name": "Normal", "type": "normal"},
+      {"index": 4, "name": "Physical_Violence", "type": "anomaly"},
+      {"index": 5, "name": "RoadAccidents", "type": "anomaly"},
+      {"index": 6, "name": "Shooting", "type": "anomaly"},
+      {"index": 7, "name": "Theft", "type": "anomaly"},
+      {"index": 8, "name": "Vandalism", "type": "anomaly"}
+    ]
+  },
+
+  "created_files": [
+    {
+      "path": "simulation/__init__.py",
+      "purpose": "Package init for simulation module"
+    },
+    {
+      "path": "simulation/START_SIMULATION.py",
+      "purpose": "Main orchestrator — loads model, starts drone pipeline, runs inference loop, prints stats"
+    },
+    {
+      "path": "simulation/README_SIMULATION.md",
+      "purpose": "Documentation for the simulation system"
+    },
+    {
+      "path": "simulation/configs/__init__.py",
+      "purpose": "Package init"
+    },
+    {
+      "path": "simulation/configs/simulation_config.py",
+      "purpose": "Central configuration — model, drone, inference, stream, pipeline, monitor settings"
+    },
+    {
+      "path": "simulation/airsim_bridge/__init__.py",
+      "purpose": "Package init"
+    },
+    {
+      "path": "simulation/airsim_bridge/drone_connector.py",
+      "purpose": "Unified drone connector — AirSim backend + MockDrone fallback with GPS, battery, velocity"
+    },
+    {
+      "path": "simulation/airsim_bridge/frame_receiver.py",
+      "purpose": "Multi-source frame capture — synthetic, webcam, video file, AirSim camera"
+    },
+    {
+      "path": "simulation/runtime/__init__.py",
+      "purpose": "Package init"
+    },
+    {
+      "path": "simulation/runtime/realtime_inference.py",
+      "purpose": "Inference engine using existing EfficientNet+MLP pipeline, supports PyTorch and future ONNX"
+    },
+    {
+      "path": "simulation/runtime/pipeline_manager.py",
+      "purpose": "Main loop orchestrator — frame queues, inference, telemetry, alert generation"
+    },
+    {
+      "path": "simulation/runtime/fps_monitor.py",
+      "purpose": "Real-time FPS tracking with rolling average, peak, and min"
+    },
+    {
+      "path": "simulation/runtime/latency_monitor.py",
+      "purpose": "End-to-end, inference, and acquisition latency tracking"
+    },
+    {
+      "path": "simulation/telemetry/__init__.py",
+      "purpose": "Package init"
+    },
+    {
+      "path": "simulation/telemetry/drone_telemetry.py",
+      "purpose": "Telemetry recording with JSON export — drone state + inference results per frame"
+    },
+    {
+      "path": "simulation/streams/__init__.py",
+      "purpose": "Package init"
+    },
+    {
+      "path": "simulation/streams/video_stream_manager.py",
+      "purpose": "Stream abstraction layer — RTSP, AirSim, USB, file endpoint management"
+    },
+    {
+      "path": "simulation/results/simulation_manifest.json",
+      "purpose": "Pipeline manifest describing system configuration"
+    },
+    {
+      "path": "simulation/results/SIMULATION_SYSTEM_REPORT.json",
+      "purpose": "THIS FILE — master system report for auditing"
+    },
+    {
+      "path": "simulation/logs/",
+      "purpose": "Runtime log directory (auto-created)"
+    },
+    {
+      "path": "simulation/results/",
+      "purpose": "Session results and telemetry exports"
+    }
+  ],
+
+  "total_files_created": 19,
+
+  "dependency_requirements": {
+    "required_minimum": {
+      "python": ">=3.8",
+      "torch": ">=1.10",
+      "numpy": ">=1.20"
+    },
+    "optional": {
+      "torchvision": "For EfficientNet-B0 feature extraction from raw frames",
+      "opencv-python": "For webcam and video file frame sources",
+      "airsim": "For AirSim drone simulation integration",
+      "onnxruntime": "For future ONNX model deployment"
+    },
+    "future_not_yet_required": {
+      "unreal_engine_5": "3D environment for AirSim drone simulation",
+      "airsim_ue5_plugin": "AirSim plugin for Unreal Engine 5",
+      "jetpack_sdk": "NVIDIA Jetson edge deployment SDK",
+      "tensorrt": "NVIDIA TensorRT for optimized inference"
+    }
+  },
+
+  "pipeline_stages": [
+    {
+      "stage": 1,
+      "name": "Frame Acquisition",
+      "module": "airsim_bridge/frame_receiver.py",
+      "description": "Captures frames from configured source (synthetic/webcam/video/AirSim)",
+      "output": "640x480x3 uint8 numpy array + metadata"
+    },
+    {
+      "stage": 2,
+      "name": "Feature Extraction",
+      "module": "runtime/realtime_inference.py",
+      "description": "EfficientNet-B0 processes frame → 2560-dim feature vector",
+      "output": "1x2560 float32 tensor"
+    },
+    {
+      "stage": 3,
+      "name": "Classification",
+      "module": "runtime/realtime_inference.py",
+      "description": "MLP classifier maps features to 9 class probabilities",
+      "output": "Class prediction + confidence + probabilities"
+    },
+    {
+      "stage": 4,
+      "name": "Alert Generation",
+      "module": "runtime/pipeline_manager.py",
+      "description": "Generates alerts for anomaly classes above confidence threshold",
+      "output": "Alert objects with class, confidence, GPS, timestamp"
+    },
+    {
+      "stage": 5,
+      "name": "Telemetry Recording",
+      "module": "telemetry/drone_telemetry.py",
+      "description": "Records drone state + inference result per frame",
+      "output": "JSON telemetry log"
+    },
+    {
+      "stage": 6,
+      "name": "Statistics Collection",
+      "module": "runtime/fps_monitor.py + latency_monitor.py",
+      "description": "Tracks FPS, inference latency, end-to-end latency",
+      "output": "Real-time performance metrics"
+    }
+  ],
+
+  "runtime_flow": [
+    "1. START_SIMULATION.py → parse CLI args",
+    "2. Setup logging to simulation/logs/",
+    "3. Discover model checkpoint (search known paths or use --model-path)",
+    "4. Initialize DroneConnector (AirSim or MockDrone fallback)",
+    "5. Initialize FrameReceiver (synthetic/webcam/video/AirSim)",
+    "6. Initialize RealtimeInferenceEngine (load model, warmup)",
+    "7. Initialize FPSMonitor + LatencyMonitor",
+    "8. Initialize DroneTelemetry recorder",
+    "9. Create PipelineManager with all components",
+    "10. Run main loop: capture → infer → record → alert → stats",
+    "11. On stop: print session summary, export telemetry JSON",
+    "12. Cleanup: close frame source, disconnect drone"
+  ],
+
+  "readiness": {
+    "airsim": {
+      "ready": false,
+      "status": "Code adapter complete — requires airsim package + UE5 environment",
+      "what_to_install": "pip install airsim + Unreal Engine 5 + AirSim plugin",
+      "adapter_files": ["drone_connector.py", "frame_receiver.py"]
+    },
+    "unreal_engine": {
+      "ready": false,
+      "status": "Placeholder — requires UE5 installation with AirSim plugin",
+      "what_to_install": "Unreal Engine 5 from Epic Games Launcher + AirSim plugin build"
+    },
+    "onnx": {
+      "ready": false,
+      "status": "Code path exists — requires ONNX export of trained model",
+      "what_to_install": "pip install onnxruntime + export model with torch.onnx.export()",
+      "adapter_files": ["realtime_inference.py"]
+    },
+    "edge_deployment": {
+      "ready": false,
+      "status": "CPU inference works — GPU/Jetson requires device-specific setup",
+      "what_to_install": "NVIDIA Jetson JetPack + PyTorch for Jetson"
+    },
+    "demo_mode": {
+      "ready": true,
+      "status": "FULLY FUNCTIONAL — runs with synthetic frames + mock drone + random weights",
+      "what_to_install": "Nothing — works with torch + numpy only"
+    }
+  },
+
+  "missing_external_software": [
+    {
+      "software": "AirSim",
+      "purpose": "Drone simulation in 3D environment",
+      "install": "pip install airsim",
+      "required": false,
+      "fallback": "MockDrone provides simulated telemetry"
+    },
+    {
+      "software": "Unreal Engine 5",
+      "purpose": "3D environment rendering for drone simulation",
+      "install": "Epic Games Launcher → Unreal Engine 5",
+      "required": false,
+      "fallback": "Synthetic frames provide test data"
+    },
+    {
+      "software": "OpenCV",
+      "purpose": "Webcam and video file frame capture",
+      "install": "pip install opencv-python",
+      "required": false,
+      "fallback": "Synthetic frames"
+    },
+    {
+      "software": "ONNX Runtime",
+      "purpose": "Optimized model inference for edge deployment",
+      "install": "pip install onnxruntime",
+      "required": false,
+      "fallback": "PyTorch inference"
+    },
+    {
+      "software": "Model Checkpoint (.pth)",
+      "purpose": "Trained model weights for real predictions",
+      "install": "Place best_model.pth in models/ directory",
+      "required": false,
+      "fallback": "Random weights (demo mode)"
+    }
+  ],
+
+  "current_blockers": [
+    "No trained model checkpoint found in standard paths (demo mode active)",
+    "AirSim package not installed (mock drone active)",
+    "Unreal Engine 5 not installed (synthetic frames active)",
+    "ONNX model not exported yet"
+  ],
+
+  "manual_installation_order": [
+    "1. pip install torch torchvision numpy  (if not already installed)",
+    "2. pip install opencv-python  (for webcam/video support)",
+    "3. Place trained model checkpoint at models/best_model.pth",
+    "4. pip install airsim  (for drone simulation)",
+    "5. Install Unreal Engine 5 + AirSim plugin  (for full 3D simulation)",
+    "6. pip install onnxruntime  (for ONNX deployment)",
+    "7. Export ONNX model: torch.onnx.export(model, dummy_input, 'model.onnx')"
+  ],
+
+  "startup_command": "cd simulation && python START_SIMULATION.py",
+  "startup_command_with_options": "python START_SIMULATION.py --frames 100 --device cpu --source synthetic",
+
+  "estimated_fps": {
+    "cpu_synthetic_demo": "200-1000+ FPS (MLP-only, no feature extraction)",
+    "cpu_synthetic_full": "5-15 FPS (EfficientNet + MLP)",
+    "gpu_synthetic_full": "30-60+ FPS (EfficientNet + MLP on CUDA)",
+    "gpu_airsim_full": "15-30 FPS (depends on UE5 rendering)",
+    "edge_jetson_nano": "5-10 FPS (estimated, FP16)",
+    "edge_jetson_xavier": "15-30 FPS (estimated, FP16)",
+    "note": "MLP classifier alone is extremely fast; bottleneck is EfficientNet feature extraction"
+  },
+
+  "recommended_hardware": {
+    "minimum": {
+      "cpu": "Intel i5 / AMD Ryzen 5 or equivalent",
+      "ram": "8 GB",
+      "gpu": "Not required (CPU inference supported)",
+      "storage": "1 GB free"
+    },
+    "recommended": {
+      "cpu": "Intel i7 / AMD Ryzen 7",
+      "ram": "16 GB",
+      "gpu": "NVIDIA GTX 1060 or better (CUDA 11+)",
+      "storage": "10 GB free (for UE5 environments)"
+    },
+    "optimal_for_airsim": {
+      "cpu": "Intel i9 / AMD Ryzen 9",
+      "ram": "32 GB",
+      "gpu": "NVIDIA RTX 3070 or better",
+      "storage": "50+ GB (UE5 + environments)"
+    },
+    "edge_deployment": {
+      "device": "NVIDIA Jetson Xavier NX or Orin",
+      "ram": "8-16 GB shared",
+      "storage": "32 GB+ eMMC/NVMe"
+    }
+  },
+
+  "supported_modes": {
+    "demo": {
+      "description": "Synthetic frames + mock drone + random model weights",
+      "requirements": "torch, numpy",
+      "status": "READY"
+    },
+    "webcam": {
+      "description": "USB camera + mock drone + trained model",
+      "requirements": "torch, numpy, opencv-python, model checkpoint",
+      "status": "READY (if opencv installed)"
+    },
+    "video": {
+      "description": "Video file + mock drone + trained model",
+      "requirements": "torch, numpy, opencv-python, model checkpoint, video file",
+      "status": "READY (if opencv installed)"
+    },
+    "airsim_full": {
+      "description": "AirSim drone + UE5 camera + trained model",
+      "requirements": "torch, numpy, airsim, UE5, model checkpoint",
+      "status": "CODE READY — awaiting AirSim + UE5 installation"
+    },
+    "onnx_edge": {
+      "description": "ONNX model on edge device",
+      "requirements": "onnxruntime, exported .onnx model",
+      "status": "CODE READY — awaiting ONNX export"
+    }
+  },
+
+  "existing_project_impact": {
+    "models_modified": false,
+    "training_modified": false,
+    "configs_modified": false,
+    "evaluation_modified": false,
+    "class_mappings_modified": false,
+    "architecture_modified": false,
+    "note": "All simulation code is isolated in the simulation/ directory. Zero changes to existing project files."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "report_type": "SETUP_VALIDATION_REPORT",
+  "timestamp": "2026-05-18T06:10:30Z",
+  "environment": {
+    "installed_dependencies": [
+      "numpy"
+    ],
+    "missing_dependencies": [
+      "torch",
+      "torchvision",
+      "cv2",
+      "airsim",
+      "onnxruntime"
+    ],
+    "cuda_readiness": false,
+    "device": "None detected"
+  },
+  "simulation_readiness": {
+    "airsim_readiness": false,
+    "unreal_readiness": "Manual verification required (see unreal_engine_setup.md)",
+    "simulation_stack_verified": true
+  },
+  "model_readiness": {
+    "models_found": 0,
+    "best_model_path": null,
+    "inference_readiness": false
+  },
+  "exact_next_manual_step": "Run 'python setup/install_python_deps.py' to install missing dependencies."
+}

@@ -1,0 +1,8 @@
+# Placeholder: sample_features.npz — Generate with:
+#   import numpy as np
+#   features = np.random.randn(10, 2560).astype(np.float32)
+#   np.savez("sample_features.npz", fused_features=features)
+
+# Placeholder: test_frame_normal.jpg — Add a 224x224 normal surveillance frame
+# Placeholder: test_frame_anomaly.jpg — Add a 224x224 anomaly surveillance frame
+# Placeholder: test_video_clip.mp4 — Add a short (5-10s) test video clip
