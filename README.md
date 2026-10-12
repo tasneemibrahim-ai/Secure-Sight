@@ -725,18 +725,6 @@ Every PR **must**:
 
 ---
 
-## 👥 Team
-
-| Role | Name | Pages |
-|---|---|---|
-| **Frontend Lead** | Omnia Adel | Project setup, HomePage, LoginPage, SignUpPage |
-| **Teammate A** | — | Police Dashboard |
-| **Teammate B** | — | Hospital Dashboard |
-| **Teammate C** | — | Firefighters Dashboard |
-| **Teammate D** | — | Admin Dashboard |
-
----
-
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
